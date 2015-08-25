@@ -1,0 +1,14 @@
+SELECT USER_FIRST_NAME ,USER_LAST_NAME
+FROM WEB_USER
+WHERE USER_ID IN ( SELECT DISTINCT R1.RENT_USER_ID 
+                  FROM WEB_RENT R1, WEB_RENT R2
+                  WHERE (R1.RENT_START_DATE > R2.RENT_START_DATE 
+                  OR R1.RENT_START_DATE = R2.RENT_START_DATE)
+                  AND (R1.RENT_END_DATE < R2.RENT_END_DATE 
+                  OR R1.RENT_END_DATE = R2.RENT_END_DATE )
+                  AND R1.RENT_ID != R2.RENT_ID
+                  AND R1.RENT_USER_ID =  R2.RENT_USER_ID
+                  )
+;
+
+
